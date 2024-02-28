@@ -1,0 +1,32 @@
+name: Run the Tests
+
+on:
+  push:
+    branches:
+      -main
+
+  pull_request:
+    branches:
+      -main
+
+jobs:
+  build_and_publish:
+
+  runs-on: ubuntu-latest
+
+  steps: 
+  - uses: actions/checkout@v2
+  - name: Set up Python 3.11
+    uses: actions/setup-python@v2
+      with: 
+        python-version: 3.11
+  - name: Install Dependencies
+    run: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+
+
+  - name: Unit Testing
+    run: |
+      cd ciphers_project
+      python3 manage.py test
